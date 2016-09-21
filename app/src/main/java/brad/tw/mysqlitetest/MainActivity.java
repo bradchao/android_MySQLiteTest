@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
     public void insert(View v){
         // INSERT INTO cust (cname,tel,birthday) VALUES ('brad','123','1999-01-02');
         ContentValues data = new ContentValues();
-        data.put("cname", "gary");
-        data.put("tel", "321");
-        data.put("birthday","1999-02-12");
+        data.put("cname", "andy");
+        data.put("tel", "1111");
+        data.put("birthday","1999-04-22");
         db.insert("cust",null,data);
         query(null);
     }
@@ -41,17 +41,38 @@ public class MainActivity extends AppCompatActivity {
         query(null);
     }
     public void update(View v){
-
+        // UPDATE cust SET cname='Kevin', tel='2222' WHERE id=5;
+        ContentValues data = new ContentValues();
+        data.put("cname", "Kevin");
+        data.put("tel", "2222");
+        db.update("cust",data,"id = ?",new String[]{"5"});
+        query(null);
     }
     public void query(View v){
+        // SELECT * FROM cust
         mesg.setText("");
-        Cursor c = db.query("cust",null,null,null,null,null,null);
+        // SELECT * FROM cust
+//        Cursor c = db.query("cust",null,null,null,null,null,null);
+
+        // SELECT * FROM cust ORDER BY cname
+        //Cursor c = db.query("cust",null,null,null,null,null,"cname,tel");
+
+        // SELECT * FROM cust WHERE birthday > '1999-02-01' ORDER BY cname
+//        Cursor c = db.query("cust",null,"birthday > ?",new String[]{"1999-02-01"},
+//                null,null,"cname,tel");
+
+        // SELECT cname, tel, birthday FROM cust WHERE birthday > '1999-02-01' ORDER BY cname
+        Cursor c = db.query("cust",new String[]{"cname","tel","birthday"},
+                "birthday > ?",new String[]{"1999-02-01"},
+                null,null,"cname,tel");
+
         while (c.moveToNext()){
-            String id = c.getString(c.getColumnIndex("id"));
+//            String id = c.getString(c.getColumnIndex("id"));
             String cname = c.getString(c.getColumnIndex("cname"));
             String tel = c.getString(c.getColumnIndex("tel"));
             String birthday = c.getString(c.getColumnIndex("birthday"));
-            mesg.append(id+":"+cname+":"+tel+":"+birthday+"\n");
+//            mesg.append(id+":"+cname+":"+tel+":"+birthday+"\n");
+            mesg.append(cname+":"+tel+":"+birthday+"\n");
         }
     }
 
