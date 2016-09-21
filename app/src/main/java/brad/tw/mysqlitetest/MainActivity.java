@@ -1,5 +1,6 @@
 package brad.tw.mysqlitetest;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void insert(View v){
-
+        // INSERT INTO cust (cname,tel,birthday) VALUES ('brad','123','1999-01-02');
+        ContentValues data = new ContentValues();
+        data.put("cname", "brad");
+        data.put("tel", "123");
+        data.put("birthday","1999-01-02");
+        db.insert("cust",null,data);
+        query(null);
     }
     public void delete(View v){
 
