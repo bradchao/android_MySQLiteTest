@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by user on 2016/9/21.
  */
 public class MyDBHelper extends SQLiteOpenHelper {
+    private final String createTabel =
+            "CREATE TABLE IF NOT EXISTS cust (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "cname TEXT,tel TEXT,birthday DATE)";
+
     public MyDBHelper(Context context,
                       String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -15,7 +19,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(createTabel);
     }
 
     @Override
